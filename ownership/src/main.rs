@@ -1,6 +1,9 @@
 fn main() {
     functions_and_scope();
     return_values_and_scope();
+    referencing();
+    muttable_referencing();
+    muttable_and_immutable_referencing();
 }
 
 fn functions_and_scope() {
@@ -49,4 +52,42 @@ fn takes_and_gives_back(a_string: String) -> String { // a_string comes into
                                                       // scope
 
     a_string  // a_string is returned and moves out to the calling function
+}
+
+fn referencing() {
+    let s1 = String::from("hello");
+
+    let len = calculate_length(&s1);
+
+    println!("The length of '{}' is {}", s1, len);
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+
+
+fn muttable_referencing() {
+    let mut s = String::from("hello");
+
+    change_str(&mut s);
+
+    println!("{}", s)
+}
+
+fn change_str(str: &mut String) {
+    str.push_str(", world");
+}
+
+fn muttable_and_immutable_referencing() {
+    let mut s = String::from("hello");
+
+    let r1 = &s;
+    let r2 = &s;
+    // let r3 = &mut s; //it does not compile because imuttable referencing in r1 and r2 was not yet used at this point
+
+    println!("{} and {}", r1, r2);
+
+    let r3 = &mut s;
+    println!("{}", r3);
 }
