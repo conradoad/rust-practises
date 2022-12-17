@@ -4,6 +4,7 @@ fn main() {
     referencing();
     muttable_referencing();
     muttable_and_immutable_referencing();
+    try_dangling_reference();
 }
 
 fn functions_and_scope() {
@@ -90,4 +91,22 @@ fn muttable_and_immutable_referencing() {
 
     let r3 = &mut s;
     println!("{}", r3);
+}
+
+fn try_dangling_reference() {
+    // let reference_to_nothing = dangle(); //won't compile
+    let reference_to_string = no_dangle();
+}
+
+// fn dangle() -> &String {
+//     let s = String::from("hello");
+
+//     &s
+// }
+
+
+fn no_dangle() -> String {
+    let s = String::from("hello");
+
+    s
 }
